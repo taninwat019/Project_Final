@@ -1,0 +1,45 @@
+body{
+    background: #183A1D;
+}
+.container{
+    margin: 0 auto;
+}
+
+.container #box{
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
+.gradient-custom {
+    background:#183A1D;
+    }
+    
+    .card-custom {
+    background-color: #FEFBE9 ;
+    }
+    
+    .white-text {
+    color: hsl(52, 0%, 98%);
+    font-weight: 100 ;
+    font-size: 14px;
+    }
+
+    .form-outline{
+        margin: 0 auto;
+        padding-bottom: 5%;
+    }
+
+    .btn-primary {
+        height: 40px;
+        width: 80px;
+        color: black;
+        background-color: #F0A04B;
+        border-color: #F0A04B;
+        border-radius: 10%;
+        border-style: none;
+    }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+        color: black;
+        background-color: wheat;
+        border-color: wheat;
+    }
