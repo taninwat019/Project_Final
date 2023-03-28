@@ -314,7 +314,7 @@ button.nav-link{
 }
 
 .order-quantity{
-    width: 35px;
+    width: 50px;
     height: 35px;
     text-align: center;
     border: 2px solid grey;
@@ -331,16 +331,36 @@ button.nav-link{
     border: 1px dashed grey;
 }
 
-.order-total > p{
+/* .order-total > p{
     padding: 10px 0;
 }
 
 .order-total > p > span{
     float: right;
     font-weight: 600;
+} */
+
+.order-total{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    
 }
 
-.oder-promo{
+.order-total-title{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.order-total-price{
+    margin-left: 14rem;
+}
+
+
+
+/* .oder-promo{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -357,14 +377,14 @@ button.nav-link{
     background-color: transparent;
     border: none;
     width: 80%;
-}
+} */
 
 .order-delete{
     position: relative;
     padding-left: 100px;
 }
 
-.button-promo{
+/* .button-promo{
     float: right;
     background-color: #E1EEDD;
     border: none;
@@ -372,7 +392,7 @@ button.nav-link{
     height: 80%;
     width: 25%;
     cursor: pointer;
-}
+} */
 
 .checkout{
     width: 100%;
