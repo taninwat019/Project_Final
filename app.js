@@ -18,6 +18,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 db.connect();
 app.use(flush());
+app.use(express.json());
 
 app.use(session({
     secret: "jklfsodifjsktnwjasdp465dd", // Never ever share this secret in production, keep this in separate file on environmental variable
@@ -41,8 +42,18 @@ app.use(session({
       res.status(500).send('Internal Server Error');
     }
   });
-  
 
+  app.post("/image-clicked", (req, res) => {
+    const imageId = req.body.id;
+    console.log(`Image with ID ${imageId} clicked.`);
+  
+    // Perform any required action with the image ID
+    // ...
+  
+    res.json({ message:`Image ID ${imageId} received.`});
+  });
+
+ 
 app.get('/', (req, res) => {
     res.render('login',{message: req.flash('message')})
     
@@ -67,7 +78,6 @@ app.post('/', async (req,res)=>{
         res.redirect('/')
        
     }
-
     
 })
 

@@ -42,112 +42,134 @@ $(document).ready(function () {
     });
   });
 
-  //Add to cart
-  if(document.readyState == 'loading'){
-    document.addEventListener('DOMContentLoaded', ready)
-  }else{
-    ready();
-  }
+  document.querySelectorAll(".add-cart").forEach(function (image) {
+    image.addEventListener("click", function () {
+      const imageId = this.dataset.id;
+      console.log("image ID", imageId);
+      console.log("this", this);
+      console.log("this .dataset" + this.dataset);
 
-  //Function
-  function ready(){
-    var removeMenu = document.getElementsByClassName('order-delete')
-    console.log(removeMenu)
-    //Remove Item
-    for(let i = 0; i < removeMenu.length; i++){
-      let button = removeMenu[i]
-      button.addEventListener('click', removeMenuItem)
-    }
+      // Send the image ID to the server using a POST request
+      fetch("/image-clicked", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: imageId }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Image ID sent successfully:", data);
+        })
+        .catch((error) => {
+          console.error("Error sending image ID:", error);
+        });
+    });
+  });
 
-    //Quantity of Item
-    var quantityInput = document.getElementsByClassName('order-quantity')
-      for(let i = 0; i < quantityInput.length; i++){
-        let input = quantityInput[i];
-        input.addEventListener("change", quantityChanged);
-     }
+  // //Add to cart
+  // if(document.readyState == 'loading'){
+  //   document.addEventListener('DOMContentLoaded', ready)
+  // }else{
+  //   ready();
+  // }
 
-     //Add to cart
-     let addCart = document.getElementsByClassName('add-cart')
-      for(let i = 0; i < addCart.length; i++){
-        let button = addCart[i]
-        button.addEventListener('click', addCartClicked)
-      }
-  }
+  // //Function
+  // function ready(){
+  //   var removeMenu = document.getElementsByClassName('order-delete')
+  //   console.log(removeMenu)
+  //   //Remove Item
+  //   for(let i = 0; i < removeMenu.length; i++){
+  //     let button = removeMenu[i]
+  //     button.addEventListener('click', removeMenuItem)
+  //   }
 
-  //Remove Item Fromt Cart
-  function removeMenuItem(event){
-    let buttonClicked = event.target
-    buttonClicked.parentElement.remove()
-    updateTotal();
-  }
+  //   //Quantity of Item
+  //   var quantityInput = document.getElementsByClassName('order-quantity')
+  //     for(let i = 0; i < quantityInput.length; i++){
+  //       let input = quantityInput[i];
+  //       input.addEventListener("change", quantityChanged);
+  //    }
 
-  //Quantity Change
-  function quantityChanged(event){
-    let input = event.target
-    if(isNaN(input.value) || input.value <= 0){
-      input.value = 1
-    }
-    updateTotal();
-  }
+  //    //Add to cart
+  //    let addCart = document.getElementsByClassName('add-cart')
+  //     for(let i = 0; i < addCart.length; i++){
+  //       let button = addCart[i]
+  //       button.addEventListener('click', addCartClicked)
+  //     }
+  // }
 
-  // Add to Cart
-  function addCartClicked(event){
-    var button = event.target;
-    var shopProducts = button.parentElement;
-    var name = shopProducts.getElementsByClassName("product-name")[0].innerText;
-    var price = shopProducts.getElementsByClassName("product-price")[0].innerText;
-    var productImage = shopProducts.getElementsByClassName("product-image")[0].src;
-    addProductToCart(name,price,productImage);
-    updateTotal();
-  }
+  // //Remove Item Fromt Cart
+  // function removeMenuItem(event){
+  //   let buttonClicked = event.target
+  //   buttonClicked.parentElement.remove()
+  //   updateTotal();
+  // }
 
-  function addProductToCart(name, price, productImage){
-    var cartShopBox = document.createElement("div");
-    cartShopBox.classList.add('order-card');
-    var cartItems = document.getElementsByClassName('order-wrapper')[0];
-    var cartItemsName = cartItems.getElementsByClassName('order-title');
-      for(let i = 0; i < cartItemsName.length; i++){
-        if(cartItemsName[i].innerText == name){
-          alert('You have already add this item to your cart')
-          return;
-        }
-      } 
+  // //Quantity Change
+  // function quantityChanged(event){
+  //   let input = event.target
+  //   if(isNaN(input.value) || input.value <= 0){
+  //     input.value = 1
+  //   }
+  //   updateTotal();
+  // }
+
+  // // Add to Cart
+  // function addCartClicked(event){
+  //   var button = event.target;
+  //   var shopProducts = button.parentElement;
+  //   var name = shopProducts.getElementsByClassName("product-name")[0].innerText;
+  //   var price = shopProducts.getElementsByClassName("product-price")[0].innerText;
+  //   var productImage = shopProducts.getElementsByClassName("product-image")[0].src;
+  //   addProductToCart(name,price,productImage);
+  //   updateTotal();
+  // }
+
+  // function addProductToCart(name, price, productImage){
+  //   var cartShopBox = document.createElement("div");
+  //   cartShopBox.classList.add('order-card');
+  //   var cartItems = document.getElementsByClassName('order-wrapper')[0];
+  //   var cartItemsName = cartItems.getElementsByClassName('order-title');
+  //     for(let i = 0; i < cartItemsName.length; i++){
+  //       if(cartItemsName[i].innerText == name){
+  //         alert('You have already add this item to your cart')
+  //         return;
+  //       }
+  //     } 
       
-  var cartBoxContent = `
-                        <img class="order-image" src=" ${productImage} ">
-                        <div class="order-detail">
-                          <div class="order-title">${name}</div>
-                          <div class="order-price">${price}</div> 
-                          <input type="number" min="1" value="1" class="order-quantity">
-                        </div>
-                          <i class="fa-solid fa-xmark order-delete"></i>`;
+  // var cartBoxContent = `
+  //                       <img class="order-image" src=" ${productImage} ">
+  //                       <div class="order-detail">
+  //                         <div class="order-title">${name}</div>
+  //                         <div class="order-price">${price}</div> 
+  //                         <input type="number" min="1" value="1" class="order-quantity">
+  //                       </div>
+  //                         <i class="fa-solid fa-xmark order-delete"></i>`;
 
-  cartShopBox.innerHTML = cartBoxContent;
-  cartItems.append(cartShopBox)
-  cartShopBox
-  .getElementsByClassName("order-delete")[0]
-  .addEventListener("click", removeMenuItem)
-  cartShopBox
-  .getElementsByClassName("order-quantity")[0]
-  .addEventListener("change", quantityChanged)
-  }
+  // cartShopBox.innerHTML = cartBoxContent;
+  // cartItems.append(cartShopBox)
+  // cartShopBox
+  // .getElementsByClassName("order-delete")[0]
+  // .addEventListener("click", removeMenuItem)
+  // cartShopBox
+  // .getElementsByClassName("order-quantity")[0]
+  // .addEventListener("change", quantityChanged)
+  // }
 
-  //Update Total
-  function updateTotal(){
-    let orderWrapper = document.getElementsByClassName("order-wrapper")[0]
-    let orderCard = orderWrapper.getElementsByClassName("order-card")
-    let total = 0;
-      for(let i = 0; i < orderCard.length; i++){
-        let orderCard2 = orderCard[i]
-        let priceElement = orderCard2.getElementsByClassName('order-price')[0]
-        let quantityElement = orderCard2.getElementsByClassName('order-quantity')[0]
-        let price = parseFloat(priceElement.innerText.replace("$", ""));
-        let quantity = quantityElement.value
-        total = total + (price * quantity);
+  // //Update Total
+  // function updateTotal(){
+  //   let orderWrapper = document.getElementsByClassName("order-wrapper")[0]
+  //   let orderCard = orderWrapper.getElementsByClassName("order-card")
+  //   let total = 0;
+  //     for(let i = 0; i < orderCard.length; i++){
+  //       let orderCard2 = orderCard[i]
+  //       let priceElement = orderCard2.getElementsByClassName('order-price')[0]
+  //       let quantityElement = orderCard2.getElementsByClassName('order-quantity')[0]
+  //       let price = parseFloat(priceElement.innerText.replace("$", ""));
+  //       let quantity = quantityElement.value
+  //       total = total + (price * quantity);
 
-        document.getElementsByClassName('order-total-price')[0].innerText = '$' + total;
-     }
-  }
-
-
-
+  //       document.getElementsByClassName('order-total-price')[0].innerText = '$' + total;
+  //    }
+  // }
