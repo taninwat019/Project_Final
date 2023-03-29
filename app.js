@@ -105,6 +105,22 @@ app.get('/guest',(req,res)=>{
     res.render('guest')
 })
 
+app.get('/address', (req,res) =>{
+  res.render('address')
+})
+
+app.get('/payment', (req,res) =>{
+  res.render('payment')
+})
+
+app.get('/tracking', (req,res) =>{
+  res.render('tracking')
+})
+
+app.get('/admin', (req, res)=>{
+  res.render('admin')
+})
+
   app.listen("3000", function () {
   console.log("server is listening on port 3000");
 });
