@@ -18,6 +18,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 db.connect();
 app.use(flush());
+
 app.use(express.json());
 
 app.use(session({
