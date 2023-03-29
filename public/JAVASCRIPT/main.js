@@ -118,7 +118,7 @@ $(document).ready(function () {
                         <div class="order-detail">
                           <div class="order-title">${name}</div>
                           <div class="order-price">${price}</div> 
-                          <input type="number" value="1" class="order-quantity">
+                          <input type="number" min="1" value="1" class="order-quantity">
                         </div>
                           <i class="fa-solid fa-xmark order-delete"></i>`;
 
@@ -130,7 +130,7 @@ $(document).ready(function () {
   cartShopBox
   .getElementsByClassName("order-quantity")[0]
   .addEventListener("change", quantityChanged)
-    }
+  }
 
   //Update Total
   function updateTotal(){
