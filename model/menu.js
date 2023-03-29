@@ -8,4 +8,7 @@ const menuSchema = new mongoose.Schema({
     type: String
 });
 
+
+
 exports.Menu = mongoose.model("menu",menuSchema);
+

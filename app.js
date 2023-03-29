@@ -5,13 +5,14 @@ const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const Authen = require("./control/authen");
 const flush = require("connect-flash");
+const {cartUser} = require("./model/cart")
 
 const app = express();
+const { MenuItem} = require("./model/menuItem");
 const db = require("./config/db.js");
 const { User } = require("./model/user");
+const { Menu } = require('./model/menu');
 const at = require("./control/authen")
-
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -29,10 +30,28 @@ app.use(session({
     mongoUrl : ({mongoUrl: "mongodb://127.0.0.1:27017/todolistDB"}),
   }));
 
+
+  let superHero, batManID, mafaka;
+
   app.get('/home', at.authentication, async (req, res) => {
     try {
       const user = await User.findById(req.session.userId);
+      superHero = user;
       if (user) {
+        let mamamia = await cartUser.find();
+  
+        console.log(mamamia);
+  
+        const existingCart = await cartUser.findOne({ userId: superHero._id });
+  
+        if (!existingCart) {
+          const newCart = new cartUser({ userId: superHero._id, total: 0 });
+          await newCart.save();
+          batManID = newCart._id;
+        } else {
+          batManID = existingCart._id;
+        }
+  
         res.render('index', { username: user.username });
       } else {
         // Handle the case when the user is not found in the database
@@ -43,21 +62,97 @@ app.use(session({
       res.status(500).send('Internal Server Error');
     }
   });
-
-  app.post("/image-clicked", (req, res) => {
-    const imageId = req.body.id;
-    console.log(`Image with ID ${imageId} clicked.`);
   
-    // Perform any required action with the image ID
-    // ...
-  
-    res.json({ message:`Image ID ${imageId} received.`});
-  });
 
- 
+
+
+
+
+
+//  let superHero, batManID, mafaka ;
+
+//   app.get('/home', at.authentication, async (req, res) => {
+
+//     try {
+//       const user = await User.findById(req.session.userId);
+//       superHero = user;
+//       if (user) {
+//         let mamamia = await cartUser.find()
+
+//         console.log(mamamia)
+
+//            if (cartUser.find({userId: superHero}).length == 0) {
+
+//               const newCart = new cartUser({userId : superHero,total: 0 }) 
+//               cartUser.collection.insertOne(newCart)
+//               const mafiaSiam = cartUser.find({userId:superHero})
+//               batmanID = mmafiaSiam._id
+
+//              }
+//         res.render('index', { username: user.username });
+//       } else {
+//         // Handle the case when the user is not found in the database
+//         res.redirect('/'); // Redirect to the login page or any other page you'd like
+//       }
+//     } catch (error) {
+//       console.error('Error retrieving user:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   });
+
+
+
+//   app.post("/image-clicked", (req, res) => {
+//     const imageId = req.body.id;
+//     console.log(`Image with ID ${imageId} clicked.`); 
+//     // Perform any required action with the image ID
+//     // ...
+//     res.json({ message:`Image ID ${imageId} received.`});
+//   });
+
+
+app.post("/add-to-cart",async (req,res)=>{
+
+    
+    
+    const dataNames = req.body.dataName;  
+
+    mafaka = await MenuItem.find({cartID:batManID,name:dataNames})
+    console.log(mafaka)
+    console.log(mafaka.length)
+    Menu.findOne({ name: dataNames })
+        .then((menu) => {
+            if (menu) {
+                
+
+                if (mafaka.length == 0) {
+                    let Emoji = new MenuItem({
+                        cartID:batManID,
+                        name:menu.name,
+                        price:menu.price,
+                        quantity:1
+                    })
+                    MenuItem.collection.insertOne(Emoji)
+                }
+                
+            
+                console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+                res.send("Menu found");
+            } else {
+                console.log(`Menu not found`);
+                res.send("Menu not found");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send("Error finding menu");
+        });
+    console.log(dataNames);
+})
+
+
 app.get('/', (req, res) => {
     res.render('login',{message: req.flash('message')})
-    
   })
 
 app.post('/', async (req,res)=>{
@@ -107,8 +202,6 @@ app.post('/register', async(req,res)=>{
         const newUser = new User({ email: email, password: password ,username: username}); 
         newUser.save();
         res.redirect('/');
-       
-
     }
 })
 
