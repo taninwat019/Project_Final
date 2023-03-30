@@ -25,15 +25,15 @@ app.use(flush());
 app.use(express.json());
 
 app.use(session({
-    secret: "jklfsodifjsktnwjasdp465dd", // Never ever share this secret in production, keep this in separate file on environmental variable
+    secret: "jklfsodifjsktnwjasdp465dd",
     variableresave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 3600000 }, //one hour
+    cookie: { maxAge: 3600000 }, 
     mongoUrl : ({mongoUrl: "mongodb://127.0.0.1:27017/todolistDB"}),
   }));
 
 
-  let superHero, batManID, mafaka;
+  let superHero, batManID, spiderMan;
 
 app.get('/home', at.authentication, async (req, res) => {
   try {
@@ -129,8 +129,6 @@ app.post('/login-admin', async (req,res)=>{
     
 })
 
-
-
 app.post('/logout',(req,res)=>{
     req.session.destroy(function (err) {
         res.redirect('/'); 
@@ -146,6 +144,31 @@ app.post('/logout-admin',(req,res)=>{
 app.get('/register',(req,res)=>{
     res.render('register')
 })
+
+app.get('/',(req,res)=>{
+  res.render('guest')
+})
+
+app.get('/address', (req,res) =>{
+res.render('address')
+})
+
+app.get('/payment', (req,res) =>{
+res.render('payment')
+})
+
+app.get('/tracking', (req,res) =>{
+res.render('tracking')
+})
+
+app.get('/admin', (req, res)=>{
+res.render('admin')
+})
+
+app.get('/login-admin',(req,res)=>{
+res.render('login-admin',{message: req.flash('message')})
+})
+
 
 app.post('/register', async(req,res)=>{
 
@@ -165,8 +188,6 @@ app.post('/register', async(req,res)=>{
     }
 })
 
-
-
 app.get('/cart-items', async (req, res) => {
   try {
     const cart = await cartUser.findOne({ userId: req.session.userId });
@@ -182,23 +203,21 @@ app.get('/cart-items', async (req, res) => {
   }
 });
  
-
-//ChatGPT
 app.post("/add-to-cart", async (req, res) => {
   const dataName = req.body.dataName;
   const menu = await Menu.findOne({ name: dataName });
 
   try {
     if (menu) {
-      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+      const spiderMan = await MenuItem.find({ cartID: batManID, name: dataName });
 
-      if (mafaka.length == 0) {
+      if (spiderMan.length == 0) {
         let Emoji = new MenuItem({
           cartID: batManID,
           name: menu.name,
           price: menu.price,
           quantity: 0,
-          image: menu.image, // Add this line
+          image: menu.image,
         });
         await Emoji.save();
       }
@@ -238,8 +257,6 @@ app.put('/update-quantity', async (req, res) => {
 });
 
 
-
-
 app.delete('/delete-item/:itemId', async (req, res) => {
   try {
     const itemId = req.params.itemId;
@@ -259,8 +276,6 @@ app.delete('/delete-item/:itemId', async (req, res) => {
 app.post("/image-clicked", (req, res) => {
   const imageId = req.body.id;
   console.log(`Image with ID ${imageId} clicked.`); 
-  // Perform any required action with the image ID
-  // ...
   res.json({ message:`Image ID ${imageId} received.`});
 });
 
@@ -270,31 +285,8 @@ app.get('/cart-items', (req, res) => {
 });
 
 
-
-app.get('/',(req,res)=>{
-    res.render('guest')
-})
-
-app.get('/address', (req,res) =>{
-  res.render('address')
-})
-
-app.get('/payment', (req,res) =>{
-  res.render('payment')
-})
-
-app.get('/tracking', (req,res) =>{
-  res.render('tracking')
-})
-
-app.get('/admin', (req, res)=>{
-  res.render('admin')
-})
-
-app.get('/login-admin',(req,res)=>{
-  res.render('login-admin',{message: req.flash('message')})
-})
-
-  app.listen("3000", function () {
+app.listen("3000", function () {
   console.log("server is listening on port 3000");
 });
+
+
