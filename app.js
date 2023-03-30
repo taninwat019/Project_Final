@@ -12,7 +12,7 @@ const { MenuItem} = require("./model/menuItem");
 const db = require("./config/db.js");
 const { User } = require("./model/user");
 const { Menu } = require('./model/menu');
-const at = require("./control/authen")
+const at = require("./control/authen");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -33,35 +33,64 @@ app.use(session({
 
   let superHero, batManID, mafaka;
 
-  app.get('/home', at.authentication, async (req, res) => {
-    try {
-      const user = await User.findById(req.session.userId);
-      superHero = user;
-      if (user) {
-        let mamamia = await cartUser.find();
-  
-        console.log(mamamia);
-  
-        const existingCart = await cartUser.findOne({ userId: superHero._id });
-  
-        if (!existingCart) {
-          const newCart = new cartUser({ userId: superHero._id, total: 0 });
-          await newCart.save();
-          batManID = newCart._id;
-        } else {
-          batManID = existingCart._id;
-        }
-  
-        res.render('index', { username: user.username });
+app.get('/home', at.authentication, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId);
+    superHero = user;
+    if (user) {
+      let mamamia = await cartUser.find();
+      console.log(mamamia);
+      
+      const existingCart = await cartUser.findOne({ userId: superHero._id });
+
+      if (!existingCart) {
+        const newCart = new cartUser({ userId: superHero._id, total: 0 });
+        await newCart.save();
+        batManID = newCart._id;
       } else {
-        // Handle the case when the user is not found in the database
-        res.redirect('/'); // Redirect to the login page or any other page you'd like
+        batManID = existingCart._id;
       }
-    } catch (error) {
-      console.error('Error retrieving user:', error);
-      res.status(500).send('Internal Server Error');
+
+      res.render('index', { username: user.username });
+    } else {
+      res.redirect('/');
     }
-  });
+  } catch (error) {
+    console.error('Error retrieving user:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.post("/add-to-cart", async (req, res) => {
+  const dataName = req.body.dataName;
+  const menu = await Menu.findOne({ name: dataName });
+
+  try {
+    if (menu) {
+      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+
+      if (mafaka.length == 0) {
+        let Emoji = new MenuItem({
+          cartID: batManID,
+          name: menu.name,
+          price: menu.price,
+          quantity: 1,
+        });
+        await Emoji.save();
+      }
+
+      console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+      res.json({ message: "Menu found" });
+    } else {
+      console.log(`Menu not found`);
+      res.status(404).json({ error: "Menu not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error finding menu" });
+  }
+});
+
   
 
 
@@ -204,6 +233,99 @@ app.post('/register', async(req,res)=>{
         res.redirect('/');
     }
 })
+
+app.post("/add-to-cart", async (req, res) => {
+  const dataName = req.body.dataName;
+  const menu = await Menu.findOne({ name: dataName });
+
+  try {
+    if (menu) {
+      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+
+      if (mafaka.length == 0) {
+        let Emoji = new MenuItem({
+          cartID: batManID,
+          name: menu.name,
+          price: menu.price,
+          quantity: 1,
+        });
+        await Emoji.save();
+      }
+
+      console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+      res.json({ message: "Menu found" });
+    } else {
+      console.log(`Menu not found`);
+      res.status(404).json({ message: "Menu not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error finding menu");
+  }
+});
+
+app.get('/cart-items', async (req, res) => {
+  try {
+    const cart = await cartUser.findOne({ userId: req.session.userId });
+    if (cart) {
+      const cartItems = await MenuItem.find({ cartID: cart._id });
+      res.json({ cartItems: cartItems });
+    } else {
+      res.status(404).json({ message: 'Cart not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+ 
+
+//ChatGPT
+app.post("/add-to-cart", async (req, res) => {
+  const dataName = req.body.dataName;
+  const menu = await Menu.findOne({ name: dataName });
+
+  try {
+    if (menu) {
+      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+
+      if (mafaka.length == 0) {
+        let Emoji = new MenuItem({
+          cartID: batManID,
+          name: menu.name,
+          price: menu.price,
+          quantity: 1,
+          image: req.body.dataImage, // Add this line
+        });
+        await Emoji.save();
+      }
+
+      console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+      res.json({ message: "Menu found" });
+    } else {
+      console.log(`Menu not found`);
+      res.status(404).json({ error: "Menu not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error finding menu" });
+  }
+});
+
+app.post("/image-clicked", (req, res) => {
+  const imageId = req.body.id;
+  console.log(`Image with ID ${imageId} clicked.`); 
+  // Perform any required action with the image ID
+  // ...
+  res.json({ message:`Image ID ${imageId} received.`});
+});
+
+app.get('/cart-items', (req, res) => {
+  let cartItems = cart.getCart();
+  res.json({ cartItems });
+});
+
+
 
 app.get('/guest',(req,res)=>{
     res.render('guest')

@@ -162,6 +162,9 @@ document.querySelectorAll(".add-cart").forEach(function (image) {
 //   let orderWrapper = document.getElementsByClassName("order-wrapper")[0]
 //   let orderCard = orderWrapper.getElementsByClassName("order-card")
 //   let total = 0;
+//   if(orderCard.length == 0){
+//     document.getElementsByClassName('order-total-price')[0].innerText = '$' + 0;
+//   }else{
 //     for(let i = 0; i < orderCard.length; i++){
 //       let orderCard2 = orderCard[i]
 //       let priceElement = orderCard2.getElementsByClassName('order-price')[0]
@@ -172,6 +175,84 @@ document.querySelectorAll(".add-cart").forEach(function (image) {
 
 //       document.getElementsByClassName('order-total-price')[0].innerText = '$' + total;
 //    }
+//   }
 // }
+
+// ChatGPT
+async function addToCart(itemName, itemPrice, itemImage) {
+  try {
+    const response = await fetch('/add-to-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dataName: itemName,
+        dataPrice: itemPrice,
+        dataImage: itemImage,
+      }),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text);
+    }
+    const data = await response.json();
+    console.log('Success:', data);
+  } catch (error) {
+    console.error('Error:', error);
+    if (error.message === "Menu not found") {
+      alert("Sorry, that menu item could not be found. Please try again.");
+    }
+  }
+}
+
+document.querySelectorAll('.add-cart').forEach((btn) => {
+  btn.addEventListener('click', (event) => {
+    const item = event.target.closest('.card');
+    const itemName = item.querySelector('.product-name').textContent;
+    const itemPrice = item.querySelector('.product-price').textContent.trim().slice(1); // Remove the $ sign
+    const itemImage = item.querySelector('.product-image').src;
+    addToCart(itemName, itemPrice, itemImage);
+  });
+});
+
+document.querySelector('.button-cart').addEventListener('click', () => {
+  updateCartModal();
+});
+
+async function updateCartModal() {
+  try {
+    const response = await fetch('/cart-items');
+    const data = await response.json();
+    const cartItems = data.cartItems;
+    let cartModalBody = document.querySelector('.modal-body');
+    if (cartModalBody) {
+      cartModalBody.innerHTML = '';
+      if (cartItems.length > 0) {
+        let total = 0;
+        for (let i = 0; i < cartItems.length; i++) {
+          let item = cartItems[i];
+          let cartItem = document.createElement('div');
+          cartItem.classList.add('cart-item');
+          cartItem.innerHTML = `
+              <img src="${item.image}" alt="${item.name}" class="order-image" />
+              <p class="order-title">${item.name} x ${item.quantity}</p>
+              <p class="cart-item-price">$${item.price * item.quantity}</p>
+          `;
+          cartModalBody.appendChild(cartItem);
+          total += item.price * item.quantity;
+        }
+        let cartTotal = document.querySelector('.order-total-price');
+        cartTotal.innerHTML = `$${total.toFixed(2)}`;
+      } else {
+        let emptyCart = document.createElement('p');
+        emptyCart.innerHTML = 'Your cart is empty';
+        cartModalBody.appendChild(emptyCart);
+      }
+    }
+  } catch (error) {
+    console.log('Error fetching cart items:', error);
+  }
+}
 
 
