@@ -179,7 +179,7 @@ document.querySelectorAll(".add-cart").forEach(function (image) {
 // }
 
 // ChatGPT
-async function addToCart(itemName, itemPrice, itemImage) {
+async function addToCart(itemName, itemPrice, itemImage,quantity = 1) {
   try {
     const response = await fetch('/add-to-cart', {
       method: 'POST',
@@ -190,6 +190,7 @@ async function addToCart(itemName, itemPrice, itemImage) {
         dataName: itemName,
         dataPrice: itemPrice,
         dataImage: itemImage,
+        dataQuantity: quantity,
       }),
     });
     if (!response.ok) {
@@ -206,8 +207,10 @@ async function addToCart(itemName, itemPrice, itemImage) {
     }
   }
 
-
 }
+
+
+
 
 document.querySelectorAll('.add-cart').forEach((btn) => {
   btn.addEventListener('click', (event) => {
@@ -223,11 +226,44 @@ document.querySelector('.button-cart').addEventListener('click', () => {
   updateCartModal();
 });
 
+async function updateQuantity(itemId, newQuantity) {
+  try {
+    console.log('Updating quantity:', { itemId, newQuantity }); // Add this line
+    const response = await fetch('/update-quantity', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: itemId,
+        quantity: newQuantity,
+      }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text);
+    }
+
+    const data = await response.json();
+    console.log('Quantity updated successfully:', data.item);
+    // Update the local cart data with the updated item data if needed
+    // ...
+
+  } catch (error) {
+    console.error('Error updating quantity:', error);
+  }
+}
+
+
+
+
 async function updateCartModal() {
   try {
     const response = await fetch('/cart-items');
     const data = await response.json();
     const cartItems = data.cartItems;
+    console.log('Cart items:', cartItems); // Add this line
     let cartModalBody = document.querySelector('.modal-body');
     if (cartModalBody) {
       cartModalBody.innerHTML = '';
@@ -238,36 +274,49 @@ async function updateCartModal() {
           let cartItem = document.createElement('div');
           cartItem.classList.add('cart-item');
           cartItem.innerHTML = `
-              <img class="order-image" src=" ${item.image} ">
-              <div class="order-detail">
-              <div class="order-title">${item.name}</div>
-              <div class="order-price">${item.price}</div> 
-               <input type="number" min="1" value="1" class="order-quantity">
-              </div>
-              <i class="fa-solid fa-xmark order-delete"></i>
-
-
-      
-
-              
-             
+          <img class="order-image" src=" ${item.image} ">
+          <div class="order-detail">
+          <div class="order-title">${item.name}</div>
+          <div class="order-price">${item.price}</div>
+          <input type="number" min="0" value="${item.quantity}" class="order-quantity" data-id="${item._id}">
+          <button class="delete-item" data-id="${item._id}">Delete</button>
+          </div>
+                
           `;
+
           cartModalBody.appendChild(cartItem);
           total += item.price * item.quantity;
+
+          cartItem.querySelector('.order-quantity').addEventListener('change', (event) => {
+            updateTotalPrice();
+
+            const itemId = event.target.dataset.id;
+            
+
+            const newQuantity = parseInt(event.target.value);
+            updateQuantity(itemId, newQuantity);
+
+          });
         }
-        let cartTotal = document.querySelector('.order-total-price');
-        cartTotal.innerHTML = `$${total.toFixed(2)}`;
+        // Update the total in the cart modal
+        document.querySelector('.order-total-price').innerHTML = `$${total.toFixed(2)}`;
           // Add event listeners to delete buttons
           document.querySelectorAll('.delete-item').forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-              const itemId = event.target.dataset.itemId;
-              deleteFromCart(itemId);
+            btn.addEventListener('click', async (event) => {
+              const itemId = event.target.dataset.id;
+              await deleteCartItem(itemId);
+              event.target.closest('.cart-item').remove();
+              updateTotalPrice();
             });
           });
+      
+
       } else {
         let emptyCart = document.createElement('p');
         emptyCart.innerHTML = 'Your cart is empty';
         cartModalBody.appendChild(emptyCart);
+          // Set the total to 0 when the cart is empty
+        document.querySelector('.order-total-price').innerHTML = `$0.00`;
       }
     }
   } catch (error) {
@@ -275,4 +324,37 @@ async function updateCartModal() {
   }
 }
 
+function updateTotalPrice() {
+  const cartItems = document.querySelectorAll('.cart-item');
+  let total = 0;
 
+  cartItems.forEach((item) => {
+    const price = parseFloat(item.querySelector('.order-price').textContent);
+    const quantity = parseInt(item.querySelector('.order-quantity').value);
+    total += price * quantity;
+  });
+
+  document.querySelector('.order-total-price').innerHTML = `$${total.toFixed(2)}`;
+}
+
+
+
+
+
+
+async function deleteCartItem(itemId) {
+  try {
+    const response = await fetch(`/delete-item/${itemId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text);
+    }
+
+    console.log('Item deleted successfully');
+  } catch (error) {
+    console.error('Error deleting item:', error);
+  }
+}

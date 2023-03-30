@@ -294,7 +294,7 @@ app.post("/add-to-cart", async (req, res) => {
           cartID: batManID,
           name: menu.name,
           price: menu.price,
-          quantity: 1,
+          quantity: 0,
           image: menu.image, // Add this line
         });
         await Emoji.save();
@@ -309,6 +309,47 @@ app.post("/add-to-cart", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error finding menu" });
+  }
+});
+
+app.put('/update-quantity', async (req, res) => {
+  try {
+    const itemId = req.body.id;
+    const newQuantity = req.body.quantity;
+
+    const updatedItem = await MenuItem.findByIdAndUpdate(
+      itemId,
+      { quantity: newQuantity },
+      { new: true }
+    );
+
+    if (updatedItem) {
+      res.json({ message: 'Quantity updated successfully', item: updatedItem });
+    } else {
+      res.status(404).json({ error: 'Item not found' });
+    }
+  } catch (error) {
+    console.error('Error updating quantity:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
+app.delete('/delete-item/:itemId', async (req, res) => {
+  try {
+    const itemId = req.params.itemId;
+    const deletedItem = await MenuItem.findByIdAndDelete(itemId);
+
+    if (deletedItem) {
+      res.status(200).send('Item deleted successfully');
+    } else {
+      res.status(404).send('Item not found');
+    }
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
