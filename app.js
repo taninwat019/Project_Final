@@ -61,37 +61,36 @@ app.get('/home', at.authentication, async (req, res) => {
   }
 });
 
-app.post("/add-to-cart", async (req, res) => {
-  const dataName = req.body.dataName;
-  const menu = await Menu.findOne({ name: dataName });
+// app.post("/add-to-cart", async (req, res) => {
+//   const dataName = req.body.dataName;
+//   const menu = await Menu.findOne({ name: dataName });
 
-  try {
-    if (menu) {
-      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+//   try {
+//     if (menu) {
+//       const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
 
-      if (mafaka.length == 0) {
-        let Emoji = new MenuItem({
-          cartID: batManID,
-          name: menu.name,
-          price: menu.price,
-          quantity: 1,
-        });
-        await Emoji.save();
-      }
+//       if (mafaka.length == 0) {
+//         let Emoji = new MenuItem({
+//           cartID: batManID,
+//           name: menu.name,
+//           price: menu.price,
+//           image: req.body.dataImage, // Save the image URL
+//           quantity: 1,
+//         });
+//         await Emoji.save();
+//       }
 
-      console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
-      res.json({ message: "Menu found" });
-    } else {
-      console.log(`Menu not found`);
-      res.status(404).json({ error: "Menu not found" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Error finding menu" });
-  }
-});
-
-  
+//       console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description},${menu.image}`);
+//       res.json({ message: "Menu found", menuImage: menu.image });
+//     } else {
+//       console.log(`Menu not found`);
+//       res.status(404).json({ error: "Menu not found" });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Error finding menu" });
+//   }
+// });
 
 
 
@@ -140,44 +139,44 @@ app.post("/add-to-cart", async (req, res) => {
 //   });
 
 
-app.post("/add-to-cart",async (req,res)=>{
+// app.post("/add-to-cart",async (req,res)=>{
 
     
     
-    const dataNames = req.body.dataName;  
+//     const dataNames = req.body.dataName;  
 
-    mafaka = await MenuItem.find({cartID:batManID,name:dataNames})
-    console.log(mafaka)
-    console.log(mafaka.length)
-    Menu.findOne({ name: dataNames })
-        .then((menu) => {
-            if (menu) {
+//     mafaka = await MenuItem.find({cartID:batManID,name:dataNames})
+//     console.log(mafaka)
+//     console.log(mafaka.length)
+//     Menu.findOne({ name: dataNames })
+//         .then((menu) => {
+//             if (menu) {
                 
 
-                if (mafaka.length == 0) {
-                    let Emoji = new MenuItem({
-                        cartID:batManID,
-                        name:menu.name,
-                        price:menu.price,
-                        quantity:1
-                    })
-                    MenuItem.collection.insertOne(Emoji)
-                }
+//                 if (mafaka.length == 0) {
+//                     let Emoji = new MenuItem({
+//                         cartID:batManID,
+//                         name:menu.name,
+//                         price:menu.price,
+//                         quantity:1
+//                     })
+//                     MenuItem.collection.insertOne(Emoji)
+//                 }
                 
             
-                console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
-                res.send("Menu found");
-            } else {
-                console.log(`Menu not found`);
-                res.send("Menu not found");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send("Error finding menu");
-        });
-    console.log(dataNames);
-})
+//                 // console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+//                 res.send("Menu found");
+//             } else {
+//                 console.log(`Menu not found`);
+//                 res.send("Menu not found");
+//             }
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//             res.status(500).send("Error finding menu");
+//         });
+//     console.log(dataNames);
+// })
 
 
 app.get('/', (req, res) => {
@@ -234,35 +233,36 @@ app.post('/register', async(req,res)=>{
     }
 })
 
-app.post("/add-to-cart", async (req, res) => {
-  const dataName = req.body.dataName;
-  const menu = await Menu.findOne({ name: dataName });
+// app.post("/add-to-cart", async (req, res) => {
+//   const dataName = req.body.dataName;
+//   const menu = await Menu.findOne({ name: dataName });
 
-  try {
-    if (menu) {
-      const mafaka = await MenuItem.find({ cartID: batManID, name: dataName });
+//   try {
+//     if (menu) {
+//       const mafaka = await MenuItem.find({ cartID: batManID, name: dataName});
 
-      if (mafaka.length == 0) {
-        let Emoji = new MenuItem({
-          cartID: batManID,
-          name: menu.name,
-          price: menu.price,
-          quantity: 1,
-        });
-        await Emoji.save();
-      }
+//       if (mafaka.length == 0) {
+//         let Emoji = new MenuItem({
+//           cartID: batManID,
+//           name: menu.name,
+//           price: menu.price,
+//           image: menu.image,
+//           quantity: 1,
+//         });
+//         await Emoji.save();
+//       }
 
-      console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
-      res.json({ message: "Menu found" });
-    } else {
-      console.log(`Menu not found`);
-      res.status(404).json({ message: "Menu not found" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error finding menu");
-  }
-});
+//       // console.log(`Menu found: ${menu.name}, ${menu.price}, ${menu.description}`);
+//       res.json({ message: "Menu found" });
+//     } else {
+//       console.log(`Menu not found`);
+//       res.status(404).json({ message: "Menu not found" });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Error finding menu");
+//   }
+// });
 
 app.get('/cart-items', async (req, res) => {
   try {
@@ -295,7 +295,7 @@ app.post("/add-to-cart", async (req, res) => {
           name: menu.name,
           price: menu.price,
           quantity: 1,
-          image: req.body.dataImage, // Add this line
+          image: menu.image, // Add this line
         });
         await Emoji.save();
       }
