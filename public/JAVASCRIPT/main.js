@@ -198,12 +198,15 @@ async function addToCart(itemName, itemPrice, itemImage) {
     }
     const data = await response.json();
     console.log('Success:', data);
+    itemImage = data.menuImage;
   } catch (error) {
     console.error('Error:', error);
     if (error.message === "Menu not found") {
       alert("Sorry, that menu item could not be found. Please try again.");
     }
   }
+
+
 }
 
 document.querySelectorAll('.add-cart').forEach((btn) => {
@@ -235,15 +238,32 @@ async function updateCartModal() {
           let cartItem = document.createElement('div');
           cartItem.classList.add('cart-item');
           cartItem.innerHTML = `
-              <img src="${item.image}" alt="${item.name}" class="order-image" />
-              <p class="order-title">${item.name} x ${item.quantity}</p>
-              <p class="cart-item-price">$${item.price * item.quantity}</p>
+              <img class="order-image" src=" ${item.image} ">
+              <div class="order-detail">
+              <div class="order-title">${item.name}</div>
+              <div class="order-price">${item.price}</div> 
+               <input type="number" min="1" value="1" class="order-quantity">
+              </div>
+              <i class="fa-solid fa-xmark order-delete"></i>
+
+
+      
+
+              
+             
           `;
           cartModalBody.appendChild(cartItem);
           total += item.price * item.quantity;
         }
         let cartTotal = document.querySelector('.order-total-price');
         cartTotal.innerHTML = `$${total.toFixed(2)}`;
+          // Add event listeners to delete buttons
+          document.querySelectorAll('.delete-item').forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+              const itemId = event.target.dataset.itemId;
+              deleteFromCart(itemId);
+            });
+          });
       } else {
         let emptyCart = document.createElement('p');
         emptyCart.innerHTML = 'Your cart is empty';
