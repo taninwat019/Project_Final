@@ -45,7 +45,7 @@ body {
 	display: none;
 }
 #sidebar.hide {
-	width: 60px;
+	width: 0px;
 }
 #sidebar .brand {
 	font-size: 24px;
@@ -90,7 +90,7 @@ body {
 	border-radius: 50%;
 	top: -40px;
 	right: 0;
-	box-shadow: 20px 20px 0 #FEFBE9;
+	box-shadow: 20px 20px 0 #183A1D;
 	z-index: -1;
 }
 #sidebar .side-menu li.active::after {
@@ -101,7 +101,7 @@ body {
 	border-radius: 50%;
 	bottom: -40px;
 	right: 0;
-	box-shadow: 20px -20px 0 #FEFBE9;
+	box-shadow: 20px -20px 0 #183A1D;
 	z-index: -1;
 }
 #sidebar .side-menu li a {
@@ -132,6 +132,13 @@ body {
 	display: flex;
 	justify-content: center;
 }
+
+#sidebar .brand{
+	margin-top: 10px !important;
+	margin-left: 15px !important;
+	font-size: 30px;
+
+}
 /* SIDEBAR */
 
 
@@ -146,8 +153,17 @@ body {
 	transition: .3s ease;
 }
 #sidebar.hide ~ #content {
-	width: calc(100% - 60px);
-	left: 60px;
+	width: 100%;
+	left: 0px;
+}
+
+#sidebar form button{
+	background-color: white;
+	width: 80px;
+	height: 30px;
+	margin: 600px auto;
+	border-radius: 8%;
+	border: none;
 }
 
 
@@ -334,7 +350,7 @@ body {
 
 #content main .table-data .order {
 	flex-grow: 1;
-	flex-basis: 500px;
+	flex-basis: 300px !important;
 }
 #content main .table-data .order table {
 	width: 100%;
@@ -347,12 +363,12 @@ body {
 	border-bottom: 1px solid #eee;
 }
 #content main .table-data .order table td {
-	padding: 16px 0;
+	padding: 10px 0; 
 }
 #content main .table-data .order table tr td:first-child {
 	display: flex;
 	align-items: center;
-	grid-gap: 12px;
+	grid-gap: 5px ;
 	padding-left: 6px;
 }
 #content main .table-data .order table td img {
@@ -364,7 +380,7 @@ body {
 
 #content main .table-data .order table tr td .status {
 	font-size: 10px;
-	padding: 6px 16px;
+	padding: 3px 6px ; 
 	color: #F9F9F9;
 	border-radius: 20px;
 	font-weight: 700;
