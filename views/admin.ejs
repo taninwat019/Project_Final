@@ -36,14 +36,8 @@
 		</ul>
 		<ul class="side-menu">
 
-			<form action="/logout-admin" method="POST" class="logout-form">
-				<button type="submit" class="logout-button"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
-				<!-- <a href="/login-admin" class="logout">
-						<i class='bx bxs-log-out-circle' style="background: #F0A04B;" ></i>
-						<span class="text" style="color: #F0A04B;">Logout</span>
-					</a> -->
-			</form>
-			</li>
+		
+			
 		</ul>
 
 		<div class="float-end ">
@@ -65,12 +59,19 @@
 					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
-			<p style="color: white; margin-top: 15px;">
-				<%= adminname %>
-			</p>
+			<div class="navbar-right">
+				<p class="admin-name">
+					<%= adminname %>
+				</p>
+				
 			<a href="#" class="profile">
 				<img src="../images/chef/c1.jpg">
 			</a>
+
+			<form action="/logout-admin" method="POST" class="logout-form">
+				<button type="submit" class="logout-button"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+			</form>
+		   </div>
 		</nav>
 		<!-- NAVBAR -->
 
@@ -116,99 +117,55 @@
 					</div>
 					<table>
 						<thead>
-							<tr>
-								<th>User</th>
-								<th>Date Order</th>
-								<th>Status</th>
-							</tr>
+						  <tr>
+							<th>User</th>
+							<th>Date Order</th>
+							<th>Status</th>
+						  </tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<img src="../images/chef/c1.jpg">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-								<td><button type="button" class="btn" data-bs-toggle="modal"
-									data-bs-target="#exampleModal" style="background: #F0A04B; width:50px;">
-									<i class="fa-solid fa-bars"></i>
-								</button></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/chef/c1.jpg">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-								<td><button type="button" class="btn" data-bs-toggle="modal"
-									data-bs-target="#exampleModal" style="background: #F0A04B; width:50px;">
-									<i class="fa-solid fa-bars"></i>
-								</button></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/chef/c1.jpg">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status process">Process</span></td>
-								<td><button type="button" class="btn" data-bs-toggle="modal"
-									data-bs-target="#exampleModal" style="background: #F0A04B; width:50px;">
-									<i class="fa-solid fa-bars"></i>
-								</button></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/chef/c1.jpg">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-								<td><button type="button" class="btn" data-bs-toggle="modal"
-									data-bs-target="#exampleModal" style="background: #F0A04B; width:50px;">
-									<i class="fa-solid fa-bars"></i>
-								</button></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="../images/chef/c1.jpg">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-								<td><button type="button" class="btn" data-bs-toggle="modal"
-										data-bs-target="#exampleModal" style="background: #F0A04B; width:50px;">
-										<i class="fa-solid fa-bars"></i>
-									</button></td>
-							</tr>
+						  <tr id="order-1">
+							<td>
+							  <img src="../images/chef/c1.jpg">
+							  <p>John Doe</p>
+							</td>
+							<td>01-10-2021</td>
+							<td><span class="status completed">Completed</span></td>
+							<td>
+							  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#statusModal-1" data-order-id="order-1" style="background: #F0A04B; width:50px;">
+								<i class="fa-solid fa-bars"></i>
+							  </button>
+							</td>
+						  </tr>						
 						</tbody>
-					</table>
+					  </table>
 				</div>
 
 		</main>
 		<!-- MAIN -->
 	</section>
+
+	
 	<!-- CONTENT -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Information</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					...
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" style="background: #F0A04B; border: black;">Save
-						changes</button>
-				</div>
+	<div class="modal fade" id="statusModal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
+			<div class="modal-body">
+			  <p>Select the new status for this order:</p>
+			  <button type="button" class="btn btn-primary" data-order-status="completed">Completed</button>
+			  <button type="button" class="btn btn-danger" data-order-status="pending">Pending</button>
+			  <button type="button" class="btn btn-warning" data-order-status="process">Process</button>
+
+
+			</div>
+		  </div>
 		</div>
-	</div>
+	  </div>
+	  
 
 
 	<!-- Bootstrap -->

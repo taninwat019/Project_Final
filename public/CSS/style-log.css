@@ -152,3 +152,15 @@ span.guest-btn{
 .alert{
     margin-bottom: 0px;
 }
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 90%;
+    transform: translateX(-50%);
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
