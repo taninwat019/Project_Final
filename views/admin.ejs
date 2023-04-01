@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin</title>
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/CSS/style-admin.css">
+	<!-- Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+		integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand" style="text-decoration: none; ">
+			<span class="text" style="color: white;">AdminFUP</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+
+		
+			
+		</ul>
+
+		<div class="float-end ">
+
+		</div>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<div class="navbar-right">
+				<p class="admin-name">
+					<%= adminname %>
+				</p>
+				
+			<a href="#" class="profile">
+				<img src="../images/chef/c1.jpg">
+			</a>
+
+			<form action="/logout-admin" method="POST" class="logout-form">
+				<button type="submit" class="logout-button"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+			</form>
+		   </div>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3>1020</h3>
+						<p>New Order</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3>2834</h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle'></i>
+					<span class="text">
+						<h3>$2543</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Recent Orders</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+						  <tr>
+							<th>User</th>
+							<th>Date Order</th>
+							<th>Status</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr id="order-1">
+							<td>
+							  <img src="../images/chef/c1.jpg">
+							  <p>John Doe</p>
+							</td>
+							<td>01-10-2021</td>
+							<td><span class="status completed">Completed</span></td>
+							<td>
+							  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#statusModal-1" data-order-id="order-1" style="background: #F0A04B; width:50px;">
+								<i class="fa-solid fa-bars"></i>
+							  </button>
+							</td>
+						  </tr>						
+						</tbody>
+					  </table>
+				</div>
+
+		</main>
+		<!-- MAIN -->
+	</section>
+
+	
+	<!-- CONTENT -->
+	<div class="modal fade" id="statusModal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <p>Select the new status for this order:</p>
+			  <button type="button" class="btn btn-primary" data-order-status="completed">Completed</button>
+			  <button type="button" class="btn btn-danger" data-order-status="pending">Pending</button>
+			  <button type="button" class="btn btn-warning" data-order-status="process">Process</button>
+
+
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+
+
+	<!-- Bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+		integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+		crossorigin="anonymous"></script>
+
+	<script src="../JAVASCRIPT/admin.js"></script>
+</body>
+
+</html>

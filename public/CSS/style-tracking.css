@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
+/* Gloock */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+/* Popins */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+/* Open Sans */
+html{
+    background-color: #183A1D;
+}
+body {
+    margin-top: 10%!important;
+    background-color: #FEFBE9!important;
+    font-family: 'Open Sans', serif
+}
+
+.container {
+    background-color: white;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    margin-top: 50px;
+    margin-bottom: 100px
+
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color:#FEFBE9;;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.10rem
+}
+
+.card-header:first-child {
+    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+}
+
+.card-header {
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: bold;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #F0A04B!important;
+}
+
+.track {
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 50px
+}
+
+.track .step {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+
+.track .step.active:before {
+    background: #183A1D
+}
+
+.track .step::before {
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+
+.track .step.active .icon {
+    background: #183A1D;
+    color: #fff
+}
+
+.track .icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+}
+
+.track .step.active .text {
+    font-weight: 400;
+    color: #000
+}
+
+.track .text {
+    display: block;
+    margin-top: 7px
+}
+
+.itemside {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%
+}
+
+.itemside .aside {
+    position: relative;
+    -ms-flex-negative: 0;
+    flex-shrink: 0
+}
+
+.img-sm {
+    width: 80px;
+    height: 80px;
+    padding: 7px
+}
+
+ul.row,
+ul.row-sm {
+    list-style: none;
+    padding: 0
+}
+
+.btn1{
+    color: black;
+    border: 5px solid;
+    border-color: #F0A04B;
+    background-color: #F0A04B!important;
+    border-radius: 100px
+}
+
+.btn1:hover{
+    color: white;
+    border-style: 5px solid;
+    border-color: #E1EEDD;
+    background-color: #E1EEDD!important;
+    text-decoration: none;
+}
+
+.btn2{
+    color: black;
+    border: 5px solid;
+    border-color: #F0A04B;
+    background-color: #F0A04B!important;
+    border-radius: 100px
+}
+
+.btn2:hover{
+    color: white;
+    border-style: 5px solid;
+    border-color: #E1EEDD;
+    background-color: #E1EEDD!important;
+    text-decoration: none;
+}
+
+.btn_ccod{
+    display: flex;
+    justify-content: space-between !important;
+}
+
+/* Map */
+.map .maps{
+    width: 100%;
+}
+
+.map{
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 820px ) {
+
+    body {
+        margin-top: 25%!important;
+    }
+}
+
+

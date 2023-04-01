@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/header') %>
+    <title>Fup Login</title>
+    <link rel="stylesheet" href="../CSS/style-log.css">
+
+</head>
+<body>
+     <% if(message.length > 0) { %>
+         <div class="alert alert-danger">
+            <%= message %>
+         </div>
+    <% } %>
+   
+   
+
+
+    <section>
+        
+        <div class="form-box">
+            <div class="form-value">
+                
+                <form action="/login-admin" method="post">
+                    
+                    <h2>LOGIN Admin</h2>
+                    
+                    <div class="inputbox">
+                        <ion-icon name="mail"></ion-icon>
+                        <input type="email" required placeholder="Email" name="adminEmail">
+                        
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <input type="password" required placeholder="Password" name="adminPassword">
+                        
+                    </div>
+                    <button type="submit" style="margin-bottom: 10px;">Log in</button>
+                    
+                  
+                    <div class="card-dividerRow mb-2">
+                        <div class="card-dividerLine"></div>
+                        <p class="card-dividerText">or</p>
+                       <div class="card-dividerLine"></div>
+                  </div>
+                  <div class="guest">
+                      <a href="/login" style="text-decoration: none;">
+                      
+                          <span class="guest-btn">
+                              <ion-icon name="person-sharp"></ion-icon>
+                              <span>Login as User</span>
+                          </span>
+                      
+                  </a>
+                  </div>
+                 
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+
+
+
+    <%- include('partials/footer') %>
+    <!-- Javascript -->
+    <script src="/JAVASCRIPT/login.js"></script>
+    
+</body>
+</html>

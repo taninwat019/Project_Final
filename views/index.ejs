@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/header') %>
+  <title>FUP Restaurant</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+
+
+<body>
+   <!--Navbar-->
+   <section id="title">
+    <style>
+        .navbar-nav-custom {
+          display: flex;
+          align-items: center;
+        }
+      
+        .username-text {
+          color: white;
+          margin-right: 10px;
+          margin-left: 20px;
+        }
+      
+        .logout-button {
+             background-color: #3A6B18    ;
+             color: white;
+             border-radius: 5%;
+             border: none;
+             padding: 5px 10px;
+              font-size: 14px;
+             cursor: pointer;
+             transition: background-color 0.2s;
+  }
+
+        .logout-button:hover {
+              background-color: #2C5410  ;
+         }
+      
+        .logout-form {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 20px;
+        }
+        
+        @media (max-width: 991.98px) {
+          .navbar-nav-custom {
+            flex-direction: row;
+          }
+        }
+      </style>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg bg">
+      <div class="container-fluid">
+
+        <!-- Logo -->
+       <div class="navbar-brand">
+        <a href="#" class="brand"><img src="../images/brands/fup-logo-removebg-preview.png" alt=""
+          class="img-brand "></a>
+       </div> 
+       <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto navbar-nav-custom">
+       
+        <li class="nav-item">
+          <form action="/logout" method="POST" class="logout-form">
+            <p class="username-text"><%= username %></p>
+            <button type="submit" class="logout-button">Logout</button>
+          </form>
+        </li>
+        <li class="nav-item" style="margin-right: 20px;">
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#cart-modal-btn"
+              class="navbar-item nav-link button-cart"
+            >
+              <i class="fas fa-shopping-cart" id="cart-icon"></i>
+            </button>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  </section>
+  <!-- Nav Bar -->
+
+
+  <!--Advertise Promote-->
+  <section id="promotion">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-6 ">
+          <div class="promotext">
+            <h1>Welcome To Our <span>Japanese Food</span> Restaurant</h1>
+            <p>This is Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam eius
+              vel tempore consectetur nesciunt? Nam eius tenetur recusandae optio aperiam.</p>
+            <div class="banner-btn mt-4">
+              <a href="#dashboard-menu" class="check-btn">Check our Menu</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 "">
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../images/Promo-1.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="../images/Promo-2.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="../images/Promo-3.jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+
+  </section>
+  <!-- Advertise Promote -->
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-about">
+            <p class="lorem-about">About Us</p>
+            <h2 class="line-content-about">Discover our <span>restaurant story</span></h2>
+            <p class="lorem-about font-about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nisi
+              praesentium similique animi dolor veniam accusamus distinctio, asperiores ab modi tenetur nam vero natus
+              iusto, qui voluptates repellendus maxime quisquam eveniet nostrum. Sunt eos facere dolorem ut? Ipsum,
+              porro sequi non earum commodi voluptatibus aperiam officiis aliquid illo nam nihil?</p>
+          </div>
+        </div>
+
+        <!-- Short Video -->
+        <div class="col-lg-12 video-shushi">
+          <video src="../images/Funny Sushi Commercial (1).mp4" controls autoplay loop muted "></video>
+        </div>
+
+      </div>
+  </section>
+  <!-- About -->
+
+  <!-- Menu Bar -->
+  <section id="dashboard-menu">
+    <div class="container">
+      <div class="row">
+        <div class="header">
+          <h1 style="font-weight: bold;"> Menu </h1>
+
+   <div class="row">
+
+    <ul class="menu">
+      <li class="button active" id="bestfood"> Best Food </li>
+      <li class="button" id="mainfood"> Main </li>
+      <li class="button" id="drinks"> Drinks </li>
+      <li class="button" id="dessert"> Dessert </li>
+    </ul>
+
+  </div>
+
+
+</div>
+</div>
+
+
+<div class="row">
+<div class="card-product-box">
+
+  <!-- 1 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card bestfood mainfood" id="other">
+    <div class="image ">
+      <img src="../images/sushi.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Sushi Set</h2>
+      <h4>Salmon, Hotate, Otoro, Sushi maki</h4>
+      <h3 class="product-price"> $10 </h3>
+    </div>
+    <button class="btn add-cart" data-id="0">Buy</button>
+  </div>
+
+  <!-- 2 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card bestfood mainfood" id="other">
+    <div class="image ">
+      <img src="../images/sashimi.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Sashimi Set</h2>
+      <h4>Salmon, Tuna, Otoro, Chutoro</h4>
+      <h3 class="product-price"> $12 </h3>
+    </div>
+    <button class="btn add-cart" data-id="1">Buy</button>
+  </div>
+
+  <!-- 3 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card mainfood" id="other">
+    <div class="image ">
+      <img src="../images/curry.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Tonkatsu Curry</h2>
+      <h4>Tonkatsu, Curry, Rice</h4>
+      <h3 class="product-price"> $5 </h3>
+    </div>
+    <button class="btn add-cart" data-id="2">Buy</button>
+  </div>
+
+  <!-- 4 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card mainfood" id="other">
+    <div class="image ">
+      <img src="../images/ramen.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Ramen</h2>
+      <h4>Pork, Egg, Noodle</h4>
+      <h3 class="product-price"> $3</h3>
+    </div>
+    <button class="btn add-cart" data-id="3">Buy</button>
+  </div>
+
+  <!-- 5 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card drinks" id="other">
+    <div class="image ">
+      <img src="../images/sake.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Sake</h2>
+      <h4>Japanese Alcohol</h4>
+      <h3 class="product-price">$3</h3>
+    </div>
+    <button class="btn add-cart" data-id="4">Buy</button>
+  </div>
+
+  <!-- 6 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card dessert bestfood" id="other">
+    <div class="image ">
+      <img src="../images/dango.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Dango</h2>
+      <h4>Japanese Snack</h4>
+      <h3 class="product-price"> $1 </h3>
+    </div>
+    <button class="btn add-cart" data-id="5">Buy</button>
+  </div>
+
+  <!-- 7 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card dessert" id="other">
+    <div class="image ">                   
+      <img src="../images/matcha_cake.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Matcha Lava</h2>
+      <h4>Cake Matcha </h4>
+      <h3 class="product-price">$2</h3>
+    </div>
+    <button class="btn add-cart" data-id="6">Buy</button>
+  </div>
+
+  <!-- 8 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card dessert" id="other">
+    <div class="image ">
+      <img src="../images/matcha.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Green Tea</h2>
+      <h4>Green tea</h4>
+      <h3 class="product-price"> $2 </h3>
+    </div>
+    <button class="btn add-cart" data-id="7">Buy</button>
+  </div>
+
+  <!-- 9 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card mainfood" id="other">
+    <div class="image ">
+      <img src="../images/ข้าวหน้าปลาไหล.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Unagi Don</h2>
+      <h4>Eel, Rice</h4>
+      <h3 class="product-price"> $3 </h3>
+    </div>
+    <button class="btn add-cart" data-id="8">Buy</button>
+  </div>
+
+  <!-- 10 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card dessert" id="other">
+    <div class="image ">
+      <img src="../images/bingsu-matcha.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Bingsu matcha</h2>
+      <h4>Ice with Greentea</h4>
+      <h3 class="product-price">$3</h3>
+    </div>
+    <button class="btn add-cart" data-id="9">Buy</button>
+  </div>
+
+  <!-- 11 -->
+ <div class="col-lg-3 col-md-4 col-xs-6 card dessert" id="other">
+    <div class="image ">
+      <img src="../images/bingsu-thaitea.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Bingsu thaitea</h2>
+      <h4>Ice with thaitea</h4>
+      <h3 class="product-price"> $3 </h3>
+    </div>
+    <button class="btn add-cart" data-id="10">Buy</button>
+  </div>
+
+  <!-- 12 -->
+ <div class="col-lg-3 col-md-4 col-xs-6 card dessert" id="other">
+    <div class="image ">
+      <img src="../images/hanabi-dango.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Hanabi dango</h2>
+      <h4>Japanese Snack</h4>
+      <h3 class="product-price">$1</h3>
+    </div>
+    <button class="btn add-cart" data-id="11">Buy</button>
+  </div>
+
+  <!-- 13 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card main mainfood" id="other">
+    <div class="image ">
+      <img src="../images/Oden.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Oden</h2>
+      <h4>Radish, Konnyaku, Chikuwa</h4>
+      <h3 class="product-price"> $3</h3>
+    </div>
+    <button class="btn add-cart" data-id="12">Buy</button>
+  </div>
+
+  <!-- 14 -->
+ <div class="col-lg-3 col-md-4 col-xs-6 card bestfood mainfood" id="other">
+    <div class="image ">
+      <img src="../images/tempura.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Tempura</h2>
+      <h4>Shrimp</h4>
+      <h3 class="product-price"> $2 </h3>
+    </div>
+    <button class="btn add-cart" data-id="13">Buy</button>
+  </div>
+
+  <!-- 15 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card bestfood mainfood" id="other">
+    <div class="image ">
+      <img src="../images/ข้าวหน้าเนิ้อย่าง.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Beef Rice Bowl</h2>
+      <h4>Rice, Beef, Egg</h4>
+      <h3 class="product-price"> $4</h3>
+    </div>
+    <button class="btn add-cart" data-id="14">Buy</button>
+  </div>
+
+  <!-- 16 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card bestfood mainfood" id="other">
+    <div class="image ">                     
+      <img src="../images/ข้าวหน้าหอยเซลล์ ย่าง.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Hotate Rice</h2>
+      <h4>Hotate, Rice</h4>
+      <h3 class="product-price"> $4</h3>
+    </div>
+    <button class="btn add-cart" data-id="15">Buy</button>
+  </div>
+
+  <!-- 17 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card main mainfood" id="other">
+    <div class="image ">
+      <img src="../images/ข้าวหน้าหมูผัด+ไข่ดาว.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Grill Pork</h2>
+      <h4>Pork, Rice, Egg</h4>
+      <h3 class="product-price"> $3</h3>
+    </div>
+    <button class="btn add-cart" data-id="16">Buy</button>
+  </div>
+
+  <!-- 18 -->
+ <div class="col-lg-3 col-md-4 col-xs-6 card drinks bestfood" id="other">
+    <div class="image ">
+      <img src="../images/beer.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Beer</h2>
+      <h4>Japanese beer</h4>
+      <h3 class="product-price"> $2 </h3>
+    </div>
+    <button class="btn add-cart" data-id="17">Buy</button>
+  </div>
+
+  <!-- 19 -->
+  <div class="col-lg-3 col-md-4 col-xs-6 card drinks" id="other">
+    <div class="image ">
+      <img src="../images/water.png" alt="" class="product-image">
+    </div>
+    <div class="text-desc">
+      <h2 class="product-name">Water</h2>
+      <h4>AngKaew</h4>
+      <h3 class="product-price"> $1 </h3>
+    </div>
+
+    <button class="btn add-cart" data-id="18">Buy</button>
+    
+  </div>
+
+
+</div>
+
+</div>
+</section>
+<!-- Menu Bar -->
+
+
+
+   <!-- Model Cart -->
+
+   <div class="modal fade" id="cart-modal-btn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Order Menu</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+        </div>
+        
+        <hr class="divider">
+        <div class="order-total">
+          <div class="order-total-title"><p>Total </p></div>
+          <div class="order-total-price"><p>$0</p></div>
+        </div>
+      
+      <a href="/address">
+        <button class="checkout" style="width: 90%; margin-left: 25px; margin-bottom: 10px;">
+          Checkout
+        </button>
+      </a>
+
+      </div>
+    </div>
+  </div>
+  <!-- Model Cart -->
+
+
+  <!-- Scrolltop -->
+
+  <div id="progress">
+    <span id="progress-value"><i class="fa-solid fa-chevron-up"></i></span>
+  </div>
+
+  <!-- Scrolltop -->
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <h3>Code Opacity</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur esse enim nesciunt nisi omnis earum
+          quidem maiores repellendus, quod nostrum animi nemo quo quas a exercitationem distinctio debitis sunt
+          mollitia.
+        </p>
+        <ul class="socials">
+          <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="call-outline"></ion-icon></a></li>
+        </ul>
+
+      </div>
+      <div class="footer-bottom">
+        <p>copyright &copy;2023 codeOpacity. design by <span>Fame and Up</span></p>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer -->
+
+  <!-- Link Bootstrap -->
+  <%- include('partials/footer') %>
+  <script src="/JAVASCRIPT/main.js"></script>
+
+</body>
+
+</html>
