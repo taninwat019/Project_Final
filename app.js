@@ -28,8 +28,9 @@ app.use(session({
     secret: "jklfsodifjsktnwjasdp465dd",
     variableresave: false,
     saveUninitialized: true,
+    resave:true,
     cookie: { maxAge: 3600000 }, 
-    mongoUrl : ({mongoUrl: "mongodb://127.0.0.1:27017/todolistDB"}),
+    mongoUrl : ({mongoUrl: "mongodb+srv://upahman:upahandfamie555@projectdev.oo0rzkc.mongodb.net/todolistDB"}),
   }));
 
 
