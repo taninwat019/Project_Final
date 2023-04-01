@@ -76,78 +76,84 @@
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
-		<main>
-			<div class="head-title">
-				<div class="left">
-					<h1>Dashboard</h1>
-				</div>
-			</div>
-
-			<ul class="box-info">
-				<li>
-					<i class='bx bxs-calendar-check'></i>
-					<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-group'></i>
-					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-dollar-circle'></i>
-					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
-					</span>
-				</li>
-			</ul>
-
-
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3>Recent Orders</h3>
-						<i class='bx bx-search'></i>
-						<i class='bx bx-filter'></i>
-					</div>
-					<table>
-						<thead>
-						  <tr>
-							<th>User</th>
-							<th>Date Order</th>
-							<th>Status</th>
-						  </tr>
-						</thead>
-						<tbody>
-						  <tr id="order-1">
-							<td>
-							  <img src="../images/chef/c1.jpg">
-							  <p>John Doe</p>
-							</td>
-							<td>01-10-2021</td>
-							<td><span class="status completed">Completed</span></td>
-							<td>
-							  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#statusModal-1" data-order-id="order-1" style="background: #F0A04B; width:50px;">
-								<i class="fa-solid fa-bars"></i>
-							  </button>
-							</td>
-						  </tr>						
-						</tbody>
-					  </table>
-				</div>
-
-		</main>
 		<!-- MAIN -->
-	</section>
-
-	
-	<!-- CONTENT -->
-	<div class="modal fade" id="statusModal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<main>
+	<div class="head-title">
+	  <div class="left">
+		<h1>Dashboard</h1>
+	  </div>
+	</div>
+  
+	<ul class="box-info">
+	  
+<li>
+	<i class='bx bxs-calendar-check'></i>
+	<span class="text">
+		<h3>1020</h3>
+		<p>New Order</p>
+	</span>
+</li>
+<li>
+	<i class='bx bxs-group'></i>
+	<span class="text">
+		<h3>2834</h3>
+		<p>Visitors</p>
+	</span>
+</li>
+<li>
+	<i class='bx bxs-dollar-circle'></i>
+	<span class="text">
+		<h3>$2543</h3>
+		<p>Total Sales</p>
+	</span>
+</li>
+	</ul>
+  
+	<div class="table-data">
+	  <div class="order">
+		<div class="head">
+		  <h3>Recent Orders</h3>
+		  <i class='bx bx-search'></i>
+		  <i class='bx bx-filter'></i>
+		</div>
+		<table id="orders-table">
+		  <thead>
+			<tr>
+			  <th>User</th>
+			  <th>Date Order</th>
+			  <th>Status</th>
+			</tr>
+		  </thead>
+		  <tbody id="orders-tbody">
+			<!-- Order data will be populated here by the fetchOrders() function -->
+			
+			<% orders.forEach(order => { %>
+				<% allUser.forEach(user => { %>
+					
+						 <% if (order.userId == user._id) { %>
+							
+				<tr>
+					<td>
+						<!-- <img src="${order.userImage}" alt="User Image"> -->
+						
+						<p><%= user.username %></p>
+					  </td>
+					  <td><%=order.orderDate %></td>
+					  <td><span class="status ${order.status.toLowerCase()}" style="color: black; font-size: 13px;"><%= order.status %></span></td>
+					  <td>
+						<button type="button" class="btn btn-warning btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Cooking')">
+							Cook
+						  </button>
+						  <button type="button" class="btn btn-info btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Delivering')">
+							Delivery
+						  </button>
+						  <button type="button" class="btn btn-success btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Complete')">
+							Complete
+						  </button>
+					  </td>
+				</tr>
+					<!-- CONTENT -->
+	<!-- <div class="modal fade" id="statusModal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content">
 			<div class="modal-header">
@@ -155,16 +161,65 @@
 			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-			  <p>Select the new status for this order:</p>
-			  <button type="button" class="btn btn-primary" data-order-status="completed">Completed</button>
+			  <p>Select the new status for this order:</p> -->
+			  <!-- <button type="button" class="btn btn-primary" data-order-status="completed">Completed</button>
 			  <button type="button" class="btn btn-danger" data-order-status="pending">Pending</button>
-			  <button type="button" class="btn btn-warning" data-order-status="process">Process</button>
+			  <button type="button" class="btn btn-warning" data-order-status="process">Process</button> -->
+			  <!-- <button type="button" class="btn btn-warning btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Cooking')">
+                Cook
+              </button>
+              <button type="button" class="btn btn-info btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Delivering')">
+                Delivery
+              </button>
+              <button type="button" class="btn btn-success btn-sm btn-rounded" onclick="updateOrderStatus('<%= order._id %>', 'Complete')">
+                Complete
+              </button> -->
 
 
-			</div>
+			<!-- </div>
 		  </div>
 		</div>
+	  </div> -->
+				    <% } %>
+				<% }) %>
+			<% }) %>
+	
+				
+
+				
+		  </tbody>
+		</table>
 	  </div>
+	</div>
+  </main>
+  
+		<!-- MAIN -->
+	</section>
+
+	
+	<script>
+		function updateOrderStatus(orderId, newStatus) {
+	  fetch('/order/update-status', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ orderId, newStatus }),
+	  })
+		.then((response) => {
+		  if (response.ok) {
+			// Refresh the page when the status is updated successfully
+			location.reload();
+		  } else {
+			throw new Error('Failed to update order status');
+		  }
+		})
+		.catch((error) => {
+		  console.error('Error:', error);
+		});
+	}
+	
+	  </script>
 	  
 
 
@@ -176,7 +231,11 @@
 		integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
 		crossorigin="anonymous"></script>
 
-	<script src="../JAVASCRIPT/admin.js"></script>
+	<script src="/JAVASCRIPT/admin.js"></script>
+	<script src="/JAVASCRIPT/main.js"></script>
+
+
+	
 </body>
 
 </html>

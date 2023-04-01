@@ -244,3 +244,131 @@ async function deleteCartItem(itemId) {
     console.error('Error deleting item:', error);
   }
 }
+
+
+
+
+
+
+
+async function submitOrder() {
+  try {
+    const response = await fetch('/submit-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cartItems: collectCartItems(),
+      }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text);
+    }
+
+    console.log('Order submitted successfully');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('cartItems');
+    }
+
+    // Delete cart items after submitting the order
+    await deleteCartItems();
+
+    window.location.href = '/address';
+  } catch (error) {
+    console.error('Error submitting order:', error);
+  }
+}
+
+
+async function deleteCartItems() {
+  const cartItems = collectCartItems();
+
+  for (const item of cartItems) {
+    try {
+      const response = await fetch(`/delete-item/${item._id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text);
+      }
+
+      console.log(`Item with ID ${item._id} deleted successfully`);
+    } catch (error) {
+      console.error(`Error deleting item with ID ${item._id}:`, error);
+    }
+  }
+}
+
+
+
+
+function collectCartItems() {
+  const cartItems = document.querySelectorAll('.cart-item');
+  const items = [];
+
+  cartItems.forEach((item) => {
+    const id = item.querySelector('.order-quantity').dataset.id;
+    const name = item.querySelector('.order-title').textContent;
+    const price = parseFloat(item.querySelector('.order-price').textContent);
+    const quantity = parseInt(item.querySelector('.order-quantity').value);
+    const image = item.querySelector('.order-image').src;
+
+    items.push({ _id: id, name, price, quantity, image });
+  });
+
+  return items;
+}
+
+
+async function fetchOrders() {
+  try {
+    const response = await fetch('/orders');
+    const data = await response.json();
+    const orders = data.orders;
+
+    // Update the table in the admin page with the fetched orders
+    const tbody = document.querySelector('#orders-tbody');
+    tbody.innerHTML = '';
+
+    orders.forEach((order) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <tbody id="orders-tbody">
+        <td>
+          <img src="${order.userImage}" alt="User Image">
+          <p>${order.userName}</p>
+        </td>
+        <td>${order.orderDate}</td>
+        <td><span class="status ${order.status.toLowerCase()}">${order.status}</span></td>
+        <td>
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#statusModal-1" data-order-id="order-1" style="background: #F0A04B; width:50px;">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </td>
+        </tbody>
+      `;
+      tbody.appendChild(tr);
+    });
+  } catch (error) {
+    console.log('Error fetching orders:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchOrders();
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchOrders();
+});
+
+
+document.querySelector('.checkout-button').addEventListener('click', () => {
+  submitOrder();
+});
