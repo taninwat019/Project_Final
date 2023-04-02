@@ -30,13 +30,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: uphman/test-deploy4
+          tags: uphman/test-deploy6
 
       - name: prepare the docker-compose run
         run: |
-              mkdir test-deploy4
-              cp docker-compose.yml test-deploy4/docker-compose.yml 
-              cd test-deploy4
+              mkdir test-deploy6
+              cp docker-compose.yml test-deploy6/docker-compose.yml 
+              cd test-deploy6
               docker-compose -H ${{ secrets.HOST_SERVER }} down 
               docker-compose -H ${{ secrets.HOST_SERVER }} pull
               docker-compose -H ${{ secrets.HOST_SERVER }} up -d
